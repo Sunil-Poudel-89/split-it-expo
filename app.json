@@ -23,6 +23,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "caf613e0-106b-493d-918e-2af356c32eb6"
+      }
+    },
+    "owner": "sunilpaudel"
   }
 }
