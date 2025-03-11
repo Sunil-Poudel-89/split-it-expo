@@ -161,7 +161,7 @@ export const makeSettle = async (formData) => {
 
 export const registerDeviceToken = async (email, token, platform) => {
   try {
-    const response = await API.post(`${API_URL}/notifications/v1/register-token`, {
+    const response = await API.post(`/api/notification/register-token`, {
       email,
       token,
       platform,

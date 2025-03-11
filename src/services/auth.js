@@ -2,7 +2,7 @@ import * as api from "../api/index";
 // import configData from '../config.json';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CommonActions } from "@react-navigation/native";
-
+import { registerPushToken } from '../services/pushNotificationService';
 // Example usage in a component
 import { useNavigation } from "@react-navigation/native";
 
@@ -23,6 +23,7 @@ export const login = async (
   try {
     const { data } = await api.loginIn(formData);
     await AsyncStorage.setItem("profile", JSON.stringify(data));
+    await registerPushToken(formData.emailId);
     // Replace window.location with React Navigation
     navigation.dispatch(
       CommonActions.reset({

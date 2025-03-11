@@ -3,12 +3,12 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ThemeProvider from './src/theme/index';
 import AppNavigation from './src/navigation';
 import { StatusBar } from 'expo-status-bar';
-import { registerForPushNotifications, notificationListener } from './src/services/pushNotificationService';
+import { getExpoPushToken, notificationListener } from './src/services/pushNotificationService';
 
 export default function App() {
   useEffect(() => {
-    // Register for push notifications when app starts
-    registerForPushNotifications();
+    // Get push token but don't register it yet (we'll do that after login)
+    getExpoPushToken();
     
     // Set up notification listeners
     const unsubscribe = notificationListener();

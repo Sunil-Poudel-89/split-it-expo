@@ -19,53 +19,6 @@ import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { register } from '../../services/auth'; // Adjust the path as needed
 
-import { useEffect, useRef } from 'react';
-import { Platform } from 'react-native';
-import * as Device from 'expo-device';
-import * as Notifications from 'expo-notifications';
-import Constants from 'expo-constants';
-
-async function registerForPushNotificationsAsync() {
-  if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
-      importance: Notifications.AndroidImportance.HIGH,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#FF231F7C',
-    });
-  }
-
-  if (Device.isDevice) {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-    if (finalStatus !== 'granted') {
-      return '';
-    }
-    const projectId =
-      Constants?.expoConfig?.extra?.eas?.projectId ?? Constants?.easConfig?.projectId;
-    if (!projectId) {
-      return ''
-    }
-    try {
-      const pushTokenString = (
-        await Notifications.getExpoPushTokenAsync({
-          projectId,
-        })
-      ).data;
-      console.log(pushTokenString);
-      return pushTokenString;
-    } catch (e) {
-      return ''
-    }
-  } else {
-    return ''
-  }
-}
-
 export default function Register() {
   const navigation = useNavigation();
 
@@ -86,7 +39,6 @@ export default function Register() {
       .min(10, 'Must be 10 digits')
       .max(10, 'Must be 10 digits')
       .required('Phone number is required'),
-    notificationToken: Yup.string()
   });
 
   const formik = useFormik({
@@ -96,7 +48,6 @@ export default function Register() {
       emailId: '',
       password: '',
       phoneNumber: '',
-      notificationToken: '',
       remember: true,
     },
     validationSchema: RegisterSchema,
@@ -104,12 +55,6 @@ export default function Register() {
       await register(values, setShowAlert, setAlertMessage, navigation);
     },
   });
-
-  useEffect(() => {
-      registerForPushNotificationsAsync()
-        .then(token => setExpoPushToken(token ?? ''))
-        .catch((error) => setExpoPushToken(`${error}`));
-    }, []);
 
   const {
     errors,

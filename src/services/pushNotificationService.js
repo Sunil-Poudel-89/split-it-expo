@@ -13,10 +13,11 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export const registerForPushNotifications = async () => {
+// Get the push token without registering it with the server
+export const getExpoPushToken = async () => {
   if (!Device.isDevice) {
-    alert('Push Notifications require a physical device');
-    return;
+    console.log('Push Notifications require a physical device');
+    return null;
   }
 
   try {
@@ -30,30 +31,15 @@ export const registerForPushNotifications = async () => {
     }
     
     if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
-      return;
+      console.log('Failed to get push token for push notification!');
+      return null;
     }
 
     // Get token
     const token = (await Notifications.getExpoPushTokenAsync()).data;
     
     // Store token locally
-    const storedToken = await AsyncStorage.getItem('expoPushToken');
-    if (token !== storedToken) {
-      await AsyncStorage.setItem('expoPushToken', token);
-      
-      // Get user's email
-      const profileString = await AsyncStorage.getItem('profile');
-      if (profileString) {
-        const profile = JSON.parse(profileString);
-        const email = profile?.emailId;
-        
-        if (email) {
-          // Register token on server
-          await registerDeviceToken(email, token, Platform.OS);
-        }
-      }
-    }
+    await AsyncStorage.setItem('expoPushToken', token);
     
     // Set up device-specific settings (required for Android)
     if (Platform.OS === 'android') {
@@ -67,7 +53,33 @@ export const registerForPushNotifications = async () => {
     
     return token;
   } catch (error) {
-    console.error('Error setting up notifications:', error);
+    console.error('Error getting push token:', error);
+    return null;
+  }
+};
+
+// Register the token with the server (call this after user logs in)
+export const registerPushToken = async (email) => {
+  try {
+    // Get the stored token
+    let token = await AsyncStorage.getItem('expoPushToken');
+    
+    // If no token exists, try to get one
+    if (!token) {
+      token = await getExpoPushToken();
+    }
+    
+    if (token && email) {
+      // Register token on the server
+      await registerDeviceToken(email, token, Platform.OS);
+      console.log('Push token registered for user:', email);
+      return true;
+    }
+    
+    return false;
+  } catch (error) {
+    console.error('Error registering push token with server:', error);
+    return false;
   }
 };
 

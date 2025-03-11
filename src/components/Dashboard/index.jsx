@@ -106,12 +106,12 @@ export default function DashboardHome() {
           
           {/* Group Expense Chart Row */}
           <View style={styles.card}>
-            <GroupExpenseChart />
+            {/* <GroupExpenseChart /> */}
           </View>
           
           {/* Category Expense Chart Row 1 */}
           <View style={styles.card}>
-            <CategoryExpenseChart />
+            {/* <CategoryExpenseChart /> */}
           </View>
           
           {/* Recent Transactions Row */}
