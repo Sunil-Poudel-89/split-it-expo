@@ -10,7 +10,6 @@ import GroupMonthlyGraph from './GroupMonthlyGraph';
 import { GroupSettlements } from '../settlements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getGroupDetailsService, getGroupExpenseService } from '../../../services/groupServices';
-import Iconify from '../../Iconify';
 // import Icon from 'react-native-vector-icons/EvilIcons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; 
 let showCount = 10;
@@ -149,9 +148,6 @@ export default function ViewGroup() {
                 <Text style={styles.addExpenseText}>Add Expense</Text>
               </TouchableOpacity>
             </View>
-            {/* <View style={styles.categoryIconContainer}>
-              <Iconify icon={categoryIcon(group?.groupCategory)} style={styles.categoryIcon} />
-            </View> */}
           </View>
 
           <View style={styles.expenseSummary}>
@@ -200,14 +196,6 @@ export default function ViewGroup() {
             >
               <Text style={[styles.toggleText, viewSettlement === 1 && styles.activeToggle]}>
                 All Settlements
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.toggleButton, viewSettlement === 2 && styles.activeToggle]}
-              onPress={toggleMySettleView}
-            >
-              <Text style={[styles.toggleText, viewSettlement === 2 && styles.activeToggle]}>
-                My Settlements
               </Text>
             </TouchableOpacity>
           </View>
@@ -273,17 +261,6 @@ export default function ViewGroup() {
                 currency={group?.groupCurrency}
                 email={emailId}
                 type={1}
-              />
-            </View>
-          )}
-
-          {viewSettlement === 2 && (
-            <View style={styles.contentContainer}>
-              <GroupSettlements
-                groupId={groupId}
-                currency={group?.groupCurrency}
-                email={emailId}
-                type={0}
               />
             </View>
           )}
@@ -425,7 +402,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   noExpenseContainer: {
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
     minHeight: 200,
   },

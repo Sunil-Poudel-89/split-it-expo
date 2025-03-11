@@ -262,9 +262,10 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
-    padding: 10,
+    padding: 20,
     marginBottom: 10,
     borderRadius: 5,
+    
   },
   button: {
     backgroundColor: '#1976D2',

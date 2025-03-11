@@ -10,10 +10,6 @@ const SettlementCard = ({ mySettle, currencyType }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     if (reload) {
-      // In React Native, you can't directly reload the window.
-      // You might want to refresh the data or navigate back to the previous screen.
-      // Example:
-      // navigation.navigate('PreviousScreen'); // If you have React Navigation
       setOpen(false)
       setReload(false);
     } else {
@@ -23,10 +19,6 @@ const SettlementCard = ({ mySettle, currencyType }) => {
 
   return (
     <View style={styles.cardContainer}>
-      <Image
-        source={{ uri: 'https://via.placeholder.com/56' }} // Placeholder image
-        style={styles.avatar}
-      />
       <View style={styles.textContainer}>
         <Text style={styles.name}>{mySettle[0].split('@')[0]}</Text>
         <Text style={styles.toText}>
@@ -63,6 +55,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: "flex-start",
     backgroundColor: '#fff3e0',
     padding: 16,
     borderRadius: 8,
@@ -89,7 +82,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   amountContainer: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginTop: 5,
   },
   amountLabel: {

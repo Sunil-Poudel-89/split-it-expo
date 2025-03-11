@@ -1,5 +1,3 @@
-// client/src/components/groups/settlement/GroupSettlements.jsx (React Native Expo)
-
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
@@ -7,8 +5,8 @@ import { getGroupSettleService } from '../../../services/groupServices';
 import AlertBanner from '../../AlertBanner';
 import Iconify from '../../Iconify';
 import Loading from '../../loading';
-import SettlementCard from './settlementCard'; // Assuming you have SettlementCard.jsx
-import UserBalanceChart from './userBalanceCard'; // Assuming you have UserBalanceChart.jsx
+import SettlementCard from './settlementCard';
+import UserBalanceChart from './userBalanceCard';
 
 export const GroupSettlements = ({ currencyType }) => {
   const route = useRoute();
@@ -28,6 +26,7 @@ export const GroupSettlements = ({ currencyType }) => {
       };
       try {
         const group_settle = await getGroupSettleService(groupIdJson, setAlert, setAlertMessage);
+        console.log("group_settle", group_settle)
         setGroupSettlement(group_settle?.data?.data);
       } catch (error) {
         console.error('Error fetching group settlements:', error);
@@ -56,13 +55,11 @@ export const GroupSettlements = ({ currencyType }) => {
             ))}
           </View>
 
-          {noSettle ? (
+          {noSettle && (
             <View style={styles.noSettlement}>
               <Iconify icon="icon-park-twotone:doc-success" style={styles.successIcon} />
               <Text style={styles.noSettlementText}>No Settlement required!</Text>
             </View>
-          ) : (
-            <UserBalanceChart />
           )}
         </View>
       )}

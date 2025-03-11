@@ -76,10 +76,9 @@ export const ViewExpense = () => {
         <Text style={styles.detailText}>
           Category: {expenseDetails.expenseCategory}
         </Text>
-        <TouchableOpacity style={styles.buttonCalendarContainer}>
-                        <Icon name="calendar" style={styles.calendarButton} />
+        
                         <Text style={styles.detailText}>Date: {expenseDate}</Text>
-                      </TouchableOpacity>
+                      
 
         <Text style={styles.detailText}>
           Amount: {currencyFind(expenseDetails.expenseCurrency) + " " + convertToCurrency(expenseDetails.expenseAmount)}

@@ -2,21 +2,22 @@
 
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Platform, DatePickerAndroid, DatePickerIOS } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { currencyFind } from '../../../utils/helper';
 import Loading from '../../loading';
 import { settlementService } from '../../../services/groupServices';
 import AlertBanner from '../../AlertBanner';
-import Iconify from '../../Iconify';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; 
+
 
 
 
 const BalanceSettlement = ({ currencyType, settleTo, settleFrom, amount, handleClose, setReload }) => {
   const route = useRoute();
   const { groupId } = route.params;
-
+  const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
@@ -39,6 +40,10 @@ const BalanceSettlement = ({ currencyType, settleTo, settleFrom, amount, handleC
     setShowDatePicker(true);
   };
 
+  const navigateBackToGroups = () => {
+    navigation.navigate('DashboardHome', { screen: 'Groups' });
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {loading ? (
@@ -47,8 +52,13 @@ const BalanceSettlement = ({ currencyType, settleTo, settleFrom, amount, handleC
         <>
           {settleSuccess ? (
             <View style={styles.successContainer}>
-              <Iconify icon="icon-park-twotone:success" style={styles.successIcon} />
+              <Icon name="check" style={styles.successIcon} />
               <Text style={styles.successText}>Settlement Successful!</Text>
+              <TouchableOpacity onPress={navigateBackToGroups} style={styles.backButton}>
+                <Text>
+                  Go Back To Groups
+                </Text>
+              </TouchableOpacity>
             </View>
           ) : (
             <>
@@ -112,7 +122,6 @@ const BalanceSettlement = ({ currencyType, settleTo, settleFrom, amount, handleC
                           mode="date"
                           is24Hour={true}
                           display="default"
-                          onChange={handleDateChange}
                         />
                       )}
                     </View>
@@ -151,6 +160,9 @@ const BalanceSettlement = ({ currencyType, settleTo, settleFrom, amount, handleC
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+  },
+  backButton: {
+    paddingTop: 10,
   },
   successContainer: {
     alignItems: 'center',
