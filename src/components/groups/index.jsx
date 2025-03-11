@@ -103,7 +103,7 @@ export default function Groups() {
             style={styles.createGroupCard}
             onPress={() => navigation.navigate('CreateGroupPage')}
           >
-            <Icon name="add-circle-outline" size={50} color="black" />
+            <Icon name="add-circle-outline" size={30} color="black" />
             <Text style={styles.createGroupText}>Create new Group!</Text>
           </TouchableOpacity>
         </>
@@ -154,15 +154,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#1976D2',
     padding: 16,
     borderRadius: 8,
+    display:"flex",
+    flexDirection:'row',
     alignItems: 'center',
+    gap:10,
     justifyContent: 'center',
     marginTop: 16,
-    height:300,
+    height:100,
     backgroundColor:"#EED9C4"
   },
   createGroupText: {
     color: 'black',
     fontSize: 18,
-    marginTop: 8,
   },
 });

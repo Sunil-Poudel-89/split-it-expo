@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { TextInput, Button, Snackbar } from "react-native-paper";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -26,15 +26,12 @@ export default function LoginForm() {
 
   return (
     <View style={styles.container}>
-      <Snackbar
-        visible={showAlert}
-        onDismiss={() => setShowAlert(false)}
-        duration={6000}
-        style={styles.snackbar}
-      >
-        {alertMessage}
-      </Snackbar>
       <View style={{ flex: 1 }} />
+      <Image 
+              source={require('../../../assets/logo.png')} 
+              style={styles.image}
+              resizeMode="contain"
+            />
       <Formik
         initialValues={{
           emailId: "",
@@ -122,6 +119,14 @@ export default function LoginForm() {
           </View>
         )}
       </Formik>
+      <Snackbar
+        visible={showAlert}
+        onDismiss={() => setShowAlert(false)}
+        duration={6000}
+        style={styles.snackbar}
+      >
+        {alertMessage}
+      </Snackbar>
     </View>
   );
 }
@@ -137,9 +142,14 @@ const styles = StyleSheet.create({
   form: {
     width: "100%",
     gap: 16,
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center"
   },
   inputContainer: {
-    marginBottom: 16,
+    width: "90%",
+    display:"flex",
+    justifyContent: "center"
   },
   textInput: {
     width: "100%",
@@ -154,9 +164,18 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 16,
     paddingVertical: 8,
+    width:"50%"
   },
   snackbar: {
+    position: "absolute",
     backgroundColor: "#D32F2F",
+    width:250,
+    top:350,
+
+  },
+  image: {
+    width: '50%',
+    height: '50%',
   },
   registerLink: {
     marginTop: 16,

@@ -160,7 +160,7 @@ export default function ViewGroup() {
               <View>
                 <Text style={styles.summaryTitle}>Total expense</Text>
                 <Text style={styles.summaryValue}>
-                  {currencyFind(group?.groupCurrency)} {groupExpense.total ? convertToCurrency(groupExpense.total) : 0}
+                  {currencyFind(group?.groupCurrency)} {groupExpense && groupExpense.total  ? convertToCurrency(groupExpense.total) : 0}
                 </Text>
               </View>
             </View>

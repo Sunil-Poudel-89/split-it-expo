@@ -6,7 +6,7 @@ const baseUrl = Platform.OS === 'android'
   ? 'http://10.0.2.2:3001' // Replace with your server port
   : 'http://localhost:3001';
 
-const API = axios.create({ baseURL: baseUrl });
+const API = axios.create({ baseURL: "https://splitit-5ef8.onrender.com" });
 
 // Function to get the access header with token from AsyncStorage
 const getAccessHeader = async () => {
@@ -157,4 +157,18 @@ export const getSettle = async (formData) => {
 export const makeSettle = async (formData) => {
   const accessHeader = await getAccessHeader();
   return API.post('/api/group/v1/makeSettlement', formData, accessHeader);
+};
+
+export const registerDeviceToken = async (email, token, platform) => {
+  try {
+    const response = await API.post(`${API_URL}/notifications/v1/register-token`, {
+      email,
+      token,
+      platform,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error registering device token:', error);
+    throw error;
+  }
 };

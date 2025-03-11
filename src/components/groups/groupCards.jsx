@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   statusContainer: {
-    flexDirection: 'row',
+    flexDirection: 'col',
     justifyContent: 'space-between',
     marginBottom: 60,
 
@@ -176,15 +176,13 @@ const styles = StyleSheet.create({
   statusText: {
     padding: 8,
     borderRadius: 4,
-    marginBottom:50,
-    
   },
   shareText: {
-    padding: 8,
+    padding: 10,
     borderRadius: 4,
   },
   detailsContainer: {
-    flexDirection: 'row',
+    flexDirection: 'col',
     justifyContent: 'space-between',
   },
   categoryInfo: {

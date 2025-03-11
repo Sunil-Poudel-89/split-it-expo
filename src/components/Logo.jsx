@@ -15,7 +15,7 @@ export default function Logo({ disabledLink = false, style }) {
   const logo = (
     <View style={[styles.container, style]}>
       <Image 
-        source={require('../../assets/icon.png')} 
+        source={require('../../assets/logo.png')} 
         style={styles.image}
         resizeMode="contain"
       />

@@ -18,6 +18,7 @@ import { getGroupDetailsService } from '../../services/groupServices';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import AlertBanner from '../AlertBanner';
 import MultiSelect from 'react-native-multiple-select';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; 
 
 export default function AddExpense() {
   const navigation = useNavigation();
@@ -137,7 +138,12 @@ export default function AddExpense() {
   return (
     <ScrollView style={styles.container}>
       <AlertBanner showAlert={alert} alertMessage={alertMessage} />
-      <Text style={styles.title}>Add Expense</Text>
+      <View style={styles.titleDiv}>
+        <TouchableOpacity onPress={() => navigation.navigate('ViewGroupPage', { groupId })}>
+                      <Icon name="chevron-left" size={30} color="#000" />
+                    </TouchableOpacity>
+       <Text style={styles.title}>Add Expense</Text>
+      </View>
       <TextInput
         style={styles.input}
         placeholder="Expense Name"
@@ -262,6 +268,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
+    
+  },
+  titleDiv: {
+    flexDirection: 'row',
+    alignItems: "center",
     marginBottom:10,
     marginTop: 40,
   },

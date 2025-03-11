@@ -82,7 +82,7 @@ export default function AppNavigation() {
           {/* Auth Stack */}
           <Stack.Screen name="LogoOnlyLayout" component={LogoOnlyLayout} />
           <Stack.Screen name={"LoginPage"} component={Login} />
-          <Stack.Screen name={"RegisterPage"} component={NotificationComp} />
+          <Stack.Screen name={"RegisterPage"} component={Register} />
           <Stack.Screen name={"DashboardHome"} component={DashboardTabs} />
           <Stack.Screen name ={"CreateGroupPage"} component={CreateGroup}/>
           <Stack.Screen name={"ViewGroupPage"} component={ViewGroup}/>
